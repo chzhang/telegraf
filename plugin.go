@@ -30,11 +30,6 @@ type PluginDescriber interface {
 	SampleConfig() string
 }
 
-//
-type GenerateDescriber interface {
-	LoadGeneratedData()
-}
-
 // Logger defines an plugin-related interface for logging.
 type Logger interface {
 	// Errorf logs an error message, patterned after log.Printf.
