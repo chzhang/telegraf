@@ -35,20 +35,8 @@ func NewCPUStats(ps system.PS) *CPUStats {
 }
 
 func (c *CPUStats) Description() string {
-	// return "Read metrics about cpu usage"
 	return c.description
 }
-
-// var sampleConfig = `
-//   ## Whether to report per-cpu stats or not
-//   percpu = true
-//   ## Whether to report total system cpu stats or not
-//   totalcpu = true
-//   ## If true, collect raw CPU time metrics
-//   collect_cpu_time = false
-//   ## If true, compute and report the sum of all non-idle CPU states
-//   report_active = false
-// `
 
 func (c *CPUStats) SampleConfig() string {
 	return c.sampleConfig
