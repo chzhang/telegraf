@@ -166,6 +166,7 @@ jobs:
       - check-changed-files-or-halt
       - run: 'make deps'
       - run: 'make tidy'
+      - run: 'make generate'
       - run: 'make check'
       - run: 'make check-deps'
       - test-go

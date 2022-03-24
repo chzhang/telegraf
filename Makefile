@@ -109,9 +109,15 @@ versioninfo:
 	go run scripts/generate_versioninfo/main.go; \
 	go generate cmd/telegraf/telegraf_windows.go; \
 
+.PHONY: generate
+generate:
+	go generate ./plugins/inputs/...
+	go generate ./plugins/outputs/...
+	go generate ./plugins/processors/...
+	go generate ./plugins/aggregators/...
+
 .PHONY: telegraf
-telegraf:
-	go generate ./plugins/inputs/cpu
+telegraf: generate
 	go build -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 # Used by dockerfile builds
@@ -245,10 +251,9 @@ install: $(buildbin)
 # Telegraf build per platform.  This improves package performance by sharing
 # the bin between deb/rpm/tar packages over building directly into the package
 # directory.
-$(buildbin):
+$(buildbin): generate
 	echo $(GOOS)
 	@mkdir -pv $(dir $@)
-	go generate ./plugins/inputs/cpu
 	go build -o $(dir $@) -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 # Define packages Telegraf supports, organized by architecture with a rule to echo the list to limit include_packages
