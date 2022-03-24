@@ -5,7 +5,6 @@ The `cpu` plugin gather metrics on the system CPUs.
 ## Configuration
 
 ```toml
-# Read metrics about cpu usage
 [[inputs.cpu]]
   ## Whether to report per-cpu stats or not
   percpu = true
@@ -16,6 +15,10 @@ The `cpu` plugin gather metrics on the system CPUs.
   ## If true, compute and report the sum of all non-idle CPU states
   report_active = false
 ```
+
+## Short Description
+
+Read metrics about cpu usage
 
 ## Metrics
 

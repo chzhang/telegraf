@@ -1,3 +1,5 @@
+//go:generate go run ../../../scripts/generate_plugindata/main.go
+
 package cpu
 
 import (
@@ -19,6 +21,9 @@ type CPUStats struct {
 	TotalCPU       bool `toml:"totalcpu"`
 	CollectCPUTime bool `toml:"collect_cpu_time"`
 	ReportActive   bool `toml:"report_active"`
+
+	description  string
+	sampleConfig string
 }
 
 func NewCPUStats(ps system.PS) *CPUStats {
@@ -30,22 +35,23 @@ func NewCPUStats(ps system.PS) *CPUStats {
 }
 
 func (c *CPUStats) Description() string {
-	return "Read metrics about cpu usage"
+	// return "Read metrics about cpu usage"
+	return c.description
 }
 
-var sampleConfig = `
-  ## Whether to report per-cpu stats or not
-  percpu = true
-  ## Whether to report total system cpu stats or not
-  totalcpu = true
-  ## If true, collect raw CPU time metrics
-  collect_cpu_time = false
-  ## If true, compute and report the sum of all non-idle CPU states
-  report_active = false
-`
+// var sampleConfig = `
+//   ## Whether to report per-cpu stats or not
+//   percpu = true
+//   ## Whether to report total system cpu stats or not
+//   totalcpu = true
+//   ## If true, collect raw CPU time metrics
+//   collect_cpu_time = false
+//   ## If true, compute and report the sum of all non-idle CPU states
+//   report_active = false
+// `
 
 func (c *CPUStats) SampleConfig() string {
-	return sampleConfig
+	return c.sampleConfig
 }
 
 func (c *CPUStats) Gather(acc telegraf.Accumulator) error {
@@ -144,10 +150,14 @@ func activeCPUTime(t cpuUtil.TimesStat) float64 {
 
 func init() {
 	inputs.Add("cpu", func() telegraf.Input {
-		return &CPUStats{
+		c := &CPUStats{
 			PerCPU:   true,
 			TotalCPU: true,
 			ps:       system.NewSystemPS(),
 		}
+
+		c.LoadGeneratedData()
+
+		return c
 	})
 }

@@ -111,6 +111,7 @@ versioninfo:
 
 .PHONY: telegraf
 telegraf:
+	go generate ./plugins/inputs/cpu
 	go build -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 # Used by dockerfile builds
@@ -247,6 +248,7 @@ install: $(buildbin)
 $(buildbin):
 	echo $(GOOS)
 	@mkdir -pv $(dir $@)
+	go generate ./plugins/inputs/cpu
 	go build -o $(dir $@) -ldflags "$(LDFLAGS)" ./cmd/telegraf
 
 # Define packages Telegraf supports, organized by architecture with a rule to echo the list to limit include_packages
