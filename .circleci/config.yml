@@ -54,6 +54,7 @@ commands:
     steps:
       - checkout
       - check-changed-files-or-halt
+      - make generate
       - when:
           condition:
             equal: [ linux, << parameters.os >> ]

@@ -678,12 +678,6 @@ func printConfig(name string, p telegraf.PluginDescriber, op string, commented b
 	if commented {
 		comment = "# "
 	}
-	// TODO: This is temporary, the README includes the [[inputs.cpu]] header but the plugin expects it to be missing
-	if name == "cpu" {
-		fmt.Printf("\n%s# %s\n%s", comment, p.Description(), comment)
-	} else {
-		fmt.Printf("\n%s# %s\n%s[[%s.%s]]", comment, p.Description(), comment, op, name)
-	}
 
 	if di.Since != "" {
 		removalNote := ""
@@ -697,14 +691,15 @@ func printConfig(name string, p telegraf.PluginDescriber, op string, commented b
 	if config == "" {
 		fmt.Printf("\n%s  # no configuration\n\n", comment)
 	} else {
-		lines := strings.Split(config, "\n")
-		for i, line := range lines {
-			if i == 0 || i == len(lines)-1 {
-				fmt.Print("\n")
-				continue
-			}
-			fmt.Print(strings.TrimRight(comment+line, " ") + "\n")
-		}
+		fmt.Println(config)
+		// lines := strings.Split(config, "\n")
+		// for i, line := range lines {
+		// 	if i == 0 || i == len(lines)-1 {
+		// 		fmt.Print("\n")
+		// 		continue
+		// 	}
+		// 	fmt.Print(strings.TrimRight(comment+line, " ") + "\n")
+		// }
 	}
 }
 

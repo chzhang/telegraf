@@ -7,6 +7,5 @@ package jti_openconfig_telemetry
 // Generated files were last generated with:
 // - protoc-gen-go: v1.27.1
 // - protoc-gen-go-grpc: v1.1.0
-// These go:generate statements don't need to be run frequently, if you need to run it remove "MUTED:" comment
-//MUTED:go:generate protoc --go_out=auth/ --go-grpc_out=auth/ auth/authentication_service.proto
-//MUTED:go:generate protoc --go_out=oc/ --go-grpc_out=oc/ oc/oc.proto
+//go:generate protoc --go_out=auth/ --go-grpc_out=auth/ auth/authentication_service.proto
+//go:generate protoc --go_out=oc/ --go-grpc_out=oc/ oc/oc.proto
