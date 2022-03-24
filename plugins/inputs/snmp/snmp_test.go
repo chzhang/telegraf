@@ -1,4 +1,5 @@
-//go:generate go run -tags generate snmp_mocks_generate.go
+//This go:generate statements don't need to be run frequently, if you need to run it remove "MUTED:" comment
+//MUTED:go:generate go run -tags generate snmp_mocks_generate.go
 package snmp
 
 import (
